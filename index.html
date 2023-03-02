@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style type="text/css">
+      body,
+      html {
+        margin: 0;
+        padding: 0;
+        height: 100%;
+        overflow: hidden;
+      }
+
+      #content {
+        padding-top: 20px;
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        top: 30px;
+      }
+      #attribution {
+        background-color: white;
+        text-align: center;
+        padding: 15px;
+      }
+      #attribution a {
+        text-decoration: none;
+        color: blue;
+        cursor: pointer;
+      }
+    </style>
+    <script>
+      // set these variables
+      const themes = ["elegant", "actual", "onepage", "stackoverflow", "paper"];
+      const name = "Ethan Sletteland";
+      const githubUsername = "ethan-sletteland";
+      const gist = "9042888c0c3817dcccdc412c6d0e5634";
+      // set pdf to false if you don't have a link
+      const pdf = "ethan_sletteland_resume.pdf";
+      //   end variables
+    </script>
+  </head>
+  <body>
+    <div id="attribution">
+      Generated using <a href="https://github.com/jsonresume">JSON Resume</a>,
+      source data on <a id="gist">GitHub</a>. Switch theme
+      <select name="theme" id="theme" onchange="setTheme(event)"></select>
+      <a download hidden id="pdf">Download PDF</a>
+    </div>
+    <div id="content">
+      <iframe
+        id="iframe"
+        style="height: 100%; width: 100%"
+        frameborder="0"
+      ></iframe>
+    </div>
+    <script>
+      const themeSelector = document.getElementById("theme");
+      themes.forEach((e) => {
+        const option = document.createElement("option");
+        option.value = e;
+        option.textContent = e[0].toUpperCase() + e.substring(1);
+        themeSelector.appendChild(option);
+      });
+      document.title = `${name}'s resume`;
+      if (pdf) {
+        const pdfLink = document.getElementById("pdf");
+        pdfLink.setAttribute("href", pdf);
+        pdfLink.removeAttribute("hidden");
+      }
+      document
+        .getElementById("gist")
+        .setAttribute(
+          "href",
+          `https://gist.github.com/${githubUsername}/${gist}`
+        );
+      document
+        .getElementById("iframe")
+        .setAttribute(
+          "src",
+          `https://registry.jsonresume.org/${githubUsername}?theme=${themes[0]}`
+        );
+      setTheme = (event) => {
+        document.querySelector(
+          "iframe"
+        ).src = `https://registry.jsonresume.org/ethan-sletteland?theme=${event.currentTarget.value}`;
+      };
+    </script>
+  </body>
+</html>
